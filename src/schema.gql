@@ -1,0 +1,37 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Category {
+  """Unique code for category"""
+  code: String!
+  description: String!
+}
+
+type Query {
+  categoryAll: [Category!]!
+  category(id: Int!): Category!
+}
+
+type Mutation {
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: Int!): Category!
+}
+
+input CreateCategoryInput {
+  """Code"""
+  code: String!
+
+  """Description"""
+  description: String
+}
+
+input UpdateCategoryInput {
+  """Code"""
+  code: String
+
+  """Description"""
+  description: String
+  id: Int!
+}

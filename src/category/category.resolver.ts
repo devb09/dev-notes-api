@@ -18,8 +18,8 @@ export class CategoryResolver {
   }
 
   @Query(() => [Category], { name: 'categoryAll' })
-  findAll(): Category[] {
-    return this.categoryService.findAll();
+  async findAll(): Promise<Category[]> {
+    return await this.categoryService.findAll();
   }
 
   @Query(() => Category, { name: 'category' })
@@ -30,11 +30,9 @@ export class CategoryResolver {
   @Mutation(() => Category)
   updateCategory(
     @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
+    @Args('id') categoryID: string,
   ) {
-    return this.categoryService.update(
-      updateCategoryInput.id,
-      updateCategoryInput,
-    );
+    return this.categoryService.update(categoryID, updateCategoryInput);
   }
 
   @Mutation(() => Category)

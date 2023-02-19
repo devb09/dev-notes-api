@@ -1,16 +1,20 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Transform } from 'class-transformer';
+import { Document } from 'mongoose';
+
+export type CategoryDocument = Category & Document;
 
 @Schema()
 @ObjectType()
 export class Category {
-  // @Field(() => Int, { description: 'Example field (placeholder)' })
-  // id: number;
+  @Transform(({ value }) => value.toString())
+  @Field(() => String, { name: 'id', nullable: true })
+  _id: string;
 
   @Prop({
     type: String,
     unique: true,
-    index: true,
   })
   @Field(() => String, {
     name: 'code',
@@ -21,9 +25,10 @@ export class Category {
   @Prop({
     type: String,
     unique: false,
+    required: false,
   })
-  @Field(() => String, { name: 'description' })
-  description: string;
+  @Field(() => String, { name: 'description', nullable: true })
+  description?: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

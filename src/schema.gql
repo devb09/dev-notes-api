@@ -3,9 +3,11 @@
 # ------------------------------------------------------
 
 type Category {
+  id: String
+
   """Unique code for category"""
   code: String!
-  description: String!
+  description: String
 }
 
 type Query {
@@ -15,7 +17,7 @@ type Query {
 
 type Mutation {
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
-  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!, id: String!): Category!
   removeCategory(id: Int!): Category!
 }
 
@@ -33,5 +35,4 @@ input UpdateCategoryInput {
 
   """Description"""
   description: String
-  id: Int!
 }

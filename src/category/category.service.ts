@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCategoryInput } from './dto/create-category.input';
@@ -13,20 +13,27 @@ export class CategoryService {
   ) {}
 
   async create(createCategoryInput: CreateCategoryInput) {
-    const resp = await this.categoryModel.create(createCategoryInput);
-    return resp;
+    const newCategory = new this.categoryModel(createCategoryInput);
+    return await newCategory.save();
   }
 
-  findAll(): Category[] {
-    return [];
+  async findAll(): Promise<Category[]> {
+    return await this.categoryModel.find();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} category`;
   }
 
-  update(id: number, updateCategoryInput: UpdateCategoryInput) {
-    return `This action updates a #${id} category`;
+  async update(id: string, updateCategoryInput: UpdateCategoryInput) {
+    const updatedCategory = await this.categoryModel.findByIdAndUpdate(
+      id,
+      updateCategoryInput,
+      { new: true },
+    );
+    if (!updatedCategory)
+      throw new NotFoundException(`${updateCategoryInput.code} not found`);
+    return updatedCategory;
   }
 
   remove(id: number) {

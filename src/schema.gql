@@ -12,7 +12,7 @@ type Category {
 
 type Query {
   categoryAll: [Category!]!
-  category(id: Int!): Category!
+  category(id: String!): Category!
 }
 
 type Mutation {

@@ -6,6 +6,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
 import { CategoryModule } from './category/category.module';
 import { PostModule } from './post/post.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { PostModule } from './post/post.module';
     MongooseModule.forRoot('mongodb://localhost:27017/dev-notes-api'),
     CategoryModule,
     PostModule,
+    UserModule,
   ],
   controllers: [],
   providers: [],

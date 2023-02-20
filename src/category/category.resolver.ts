@@ -3,18 +3,17 @@ import { CategoryService } from './category.service';
 import { Category } from './entities/category.entity';
 import { CreateCategoryInput } from './dto/create-category.input';
 import { UpdateCategoryInput } from './dto/update-category.input';
+import { ParseObjectIdPipe } from 'src/utils/parse-object-id-pipe.pipe';
 
 @Resolver(() => Category)
 export class CategoryResolver {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Mutation(() => Category)
-  createCategory(
+  async createCategory(
     @Args('createCategoryInput') createCategoryInput: CreateCategoryInput,
   ) {
-    console.log(createCategoryInput);
-
-    return this.categoryService.create(createCategoryInput);
+    return await this.categoryService.create(createCategoryInput);
   }
 
   @Query(() => [Category], { name: 'categoryAll' })
@@ -23,20 +22,24 @@ export class CategoryResolver {
   }
 
   @Query(() => Category, { name: 'category' })
-  findOne(@Args('id', { type: () => String }) id: string) {
-    return this.categoryService.findOne(id);
-  }
-
-  @Mutation(() => Category)
-  updateCategory(
-    @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
-    @Args('id') categoryID: string,
+  async findOne(
+    @Args('id', { type: () => String }, ParseObjectIdPipe) id: string,
   ) {
-    return this.categoryService.update(categoryID, updateCategoryInput);
+    return await this.categoryService.findOne(id);
   }
 
   @Mutation(() => Category)
-  removeCategory(@Args('id', { type: () => Int }) id: number) {
-    return this.categoryService.remove(id);
+  async updateCategory(
+    @Args('updateCategoryInput') updateCategoryInput: UpdateCategoryInput,
+    @Args('id', ParseObjectIdPipe) categoryID: string,
+  ) {
+    return await this.categoryService.update(categoryID, updateCategoryInput);
+  }
+
+  @Mutation(() => Category)
+  async removeCategory(
+    @Args('id', { type: () => String }, ParseObjectIdPipe) id: string,
+  ) {
+    return await this.categoryService.remove(id);
   }
 }

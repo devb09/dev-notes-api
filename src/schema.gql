@@ -10,15 +10,33 @@ type Category {
   description: String
 }
 
+type Post {
+  id: String
+  title: String!
+  url_banner: String
+  content: JSON!
+  public: Boolean
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
 type Query {
   categoryAll: [Category!]!
   category(id: String!): Category!
+  postAll: [Post!]!
+  post(id: String!): Post!
 }
 
 type Mutation {
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
   updateCategory(updateCategoryInput: UpdateCategoryInput!, id: String!): Category!
-  removeCategory(id: Int!): Category!
+  removeCategory(id: String!): Category!
+  createPost(createPostInput: CreatePostInput!): Post!
+  updatePost(updatePostInput: UpdatePostInput!, id: String!): Post!
+  removePost(id: Int!): Post!
 }
 
 input CreateCategoryInput {
@@ -35,4 +53,18 @@ input UpdateCategoryInput {
 
   """Description"""
   description: String
+}
+
+input CreatePostInput {
+  title: String!
+  url_banner: String
+  content: JSON!
+  public: Boolean = true
+}
+
+input UpdatePostInput {
+  title: String
+  url_banner: String
+  content: JSON
+  public: Boolean = true
 }

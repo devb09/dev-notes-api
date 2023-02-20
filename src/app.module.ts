@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
 import { CategoryModule } from './category/category.module';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CategoryModule } from './category/category.module';
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/dev-notes-api'),
     CategoryModule,
+    PostModule,
   ],
   controllers: [],
   providers: [],

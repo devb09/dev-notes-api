@@ -45,6 +45,9 @@ export class Post {
   })
   @Field(() => Boolean, { defaultValue: true, nullable: true })
   public?: boolean;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

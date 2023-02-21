@@ -23,11 +23,21 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 """
 scalar JSON
 
+type User {
+  id: String
+  username: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  password: String!
+}
+
 type Query {
   categoryAll: [Category!]!
   category(id: String!): Category!
   postAll: [Post!]!
   post(id: String!): Post!
+  user(id: Int!): User!
 }
 
 type Mutation {
@@ -37,6 +47,9 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!, id: String!): Post!
   removePost(id: Int!): Post!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
 }
 
 input CreateCategoryInput {
@@ -67,4 +80,21 @@ input UpdatePostInput {
   url_banner: String
   content: JSON
   public: Boolean = true
+}
+
+input CreateUserInput {
+  username: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  username: String
+  first_name: String
+  last_name: String
+  email: String
+  password: String
+  id: Int!
 }

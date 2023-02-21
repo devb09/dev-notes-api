@@ -30,6 +30,9 @@ export class Category {
   })
   @Field(() => String, { name: 'description', nullable: true })
   description?: string;
+
+  @Prop({ default: Date.now })
+  createdAt: Date;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

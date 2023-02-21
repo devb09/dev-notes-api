@@ -1,7 +1,43 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { Exclude, Expose, Transform } from 'class-transformer';
+import { Prop } from '@nestjs/mongoose';
 
 @ObjectType()
 export class User {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Transform(({ value }) => value.toString())
+  @Field(() => String, { name: 'id', nullable: true })
+  _id: string;
+
+  @Transform((value) => value.toString().toLowerCase())
+  @Prop({
+    type: String,
+    unique: true,
+    required: true,
+  })
+  @Field(() => String, {
+    nullable: false,
+  })
+  username: string;
+
+  @Prop({ type: String })
+  @Field(() => String)
+  first_name: string;
+
+  @Prop({ type: String })
+  @Field(() => String)
+  last_name: string;
+
+  @Expose()
+  get fullName(): string {
+    return `${this.first_name} ${this.last_name}`;
+  }
+
+  @Prop({ type: String })
+  @Field(() => String)
+  email: string;
+
+  @Prop({ type: String })
+  @Exclude()
+  @Field(() => String)
+  password: string;
 }

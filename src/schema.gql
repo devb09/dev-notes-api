@@ -43,7 +43,8 @@ type Query {
   category(id: String!): Category!
   postAll: [Post!]!
   post(id: String!): Post!
-  user(id: Int!): User!
+  userAll: [User!]!
+  user(id: String!): User!
 }
 
 type Mutation {
@@ -53,8 +54,7 @@ type Mutation {
   createPost(createPostInput: CreatePostInput!): Post!
   updatePost(updatePostInput: UpdatePostInput!, id: String!): Post!
   removePost(id: Int!): Post!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!, id: String!): User!
   removeUser(id: Int!): User!
 }
 
@@ -88,19 +88,10 @@ input UpdatePostInput {
   public: Boolean = true
 }
 
-input CreateUserInput {
-  username: String!
-  first_name: String!
-  last_name: String!
-  email: String!
-  password: String!
-}
-
 input UpdateUserInput {
   username: String
   first_name: String
   last_name: String
   email: String
   password: String
-  id: Int!
 }

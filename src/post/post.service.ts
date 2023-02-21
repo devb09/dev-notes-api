@@ -28,20 +28,20 @@ export class PostService {
   }
 
   async findOne(id: string) {
-    const Post = await this.postModel.findById(id);
-    if (!Post) throw new NotFoundException('Post not found');
-    return Post;
+    const post = await this.postModel.findById(id);
+    if (!post) throw new NotFoundException('Post not found');
+    return post;
   }
 
   async update(id: string, updatePostInput: UpdatePostInput) {
-    const updatedpost = await this.postModel.findByIdAndUpdate(
+    const updatedPost = await this.postModel.findByIdAndUpdate(
       id,
       updatePostInput,
       { new: true },
     );
-    if (!updatedpost)
+    if (!updatedPost)
       throw new NotFoundException(`${updatePostInput.title} not found`);
-    return updatedpost;
+    return updatedPost;
   }
 
   remove(id: number) {

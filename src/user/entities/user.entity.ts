@@ -1,6 +1,8 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Exclude, Expose, Transform } from 'class-transformer';
-import { Prop } from '@nestjs/mongoose';
+import { Prop, SchemaFactory } from '@nestjs/mongoose';
+
+export type UserDocument = User & Document;
 
 @ObjectType()
 export class User {
@@ -41,3 +43,5 @@ export class User {
   @Field(() => String)
   password: string;
 }
+
+export const UserSchema = SchemaFactory.createForClass(User);

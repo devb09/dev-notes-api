@@ -7,6 +7,7 @@ import { join } from 'path';
 import { CategoryModule } from './category/category.module';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
+import GraphqlTypeJson from 'graphql-type-json';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from './user/user.module';
       playground: false,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       plugins: [ApolloServerPluginLandingPageLocalDefault],
+      resolvers: { JSON: GraphqlTypeJson },
     }),
     MongooseModule.forRoot('mongodb://localhost:27017/dev-notes-api'),
     CategoryModule,

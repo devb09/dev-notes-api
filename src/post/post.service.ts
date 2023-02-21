@@ -14,7 +14,6 @@ export class PostService {
 
   async create(createPostInput: CreatePostInput) {
     try {
-      console.log(JSON.stringify(createPostInput.content));
       const newPost = new this.postModel(createPostInput);
       return await newPost.save();
     } catch (error) {

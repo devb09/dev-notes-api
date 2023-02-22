@@ -1,8 +1,10 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Transform } from 'class-transformer';
+import { Transform, Type } from 'class-transformer';
 import { Document } from 'mongoose';
 import GraphqlTypeJson from 'graphql-type-json';
+import mongoose from 'mongoose';
+import { User } from '../../user/entities/user.entity';
 
 export type PostDocument = Post & Document;
 
@@ -48,6 +50,13 @@ export class Post {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User.name,
+  })
+  @Type(() => User)
+  author: User;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

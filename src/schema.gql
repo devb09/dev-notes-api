@@ -16,6 +16,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: String
+  username: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  password: String!
+}
+
 type Post {
   id: String
   title: String!
@@ -28,15 +37,6 @@ type Post {
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
-
-type User {
-  id: String
-  username: String!
-  first_name: String!
-  last_name: String!
-  email: String!
-  password: String!
-}
 
 type Query {
   categoryAll: [Category!]!

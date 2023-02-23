@@ -9,11 +9,6 @@ import { ParseObjectIdPipe } from 'src/utils/parse-object-id-pipe.pipe';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  // @Mutation(() => User)
-  // async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-  //   return await this.userService.create(createUserInput);
-  // }
-
   @Query(() => [User], { name: 'userAll' })
   async findAll() {
     return await this.userService.findAll();

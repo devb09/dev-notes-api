@@ -23,6 +23,8 @@ type User {
   last_name: String!
   email: String!
   password: String!
+  roles: [String!]!
+  is_active: Boolean!
 }
 
 type Post {

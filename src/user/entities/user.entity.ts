@@ -45,6 +45,14 @@ export class User {
 
   @Prop({ default: Date.now })
   createdAt: Date;
+
+  @Prop({ type: [String], default: ['user'] })
+  @Field(() => [String])
+  roles: string[];
+
+  @Prop({ type: Boolean, default: true })
+  @Field(() => Boolean)
+  is_active: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

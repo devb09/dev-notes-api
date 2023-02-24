@@ -8,6 +8,7 @@ import { CategoryModule } from './category/category.module';
 import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import GraphqlTypeJson from 'graphql-type-json';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import GraphqlTypeJson from 'graphql-type-json';
     CategoryModule,
     PostModule,
     UserModule,
+    AuthenticationModule,
   ],
   controllers: [],
   providers: [],

@@ -16,6 +16,9 @@ export class CategoryService {
   async create(createCategoryInput: CreateCategoryInput) {
     try {
       const newCategory = new this.categoryModel(createCategoryInput);
+      console.log('newCategory');
+      console.log(newCategory);
+
       return await newCategory.save();
     } catch (error) {
       HandleMongoError(error.code);

@@ -9,7 +9,6 @@ import { PostModule } from './post/post.module';
 import { UserModule } from './user/user.module';
 import GraphqlTypeJson from 'graphql-type-json';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [

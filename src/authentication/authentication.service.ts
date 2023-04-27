@@ -1,11 +1,25 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuthenticationDto } from './dto/create-authentication.dto';
-import { UpdateAuthenticationDto } from './dto/update-authentication.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { CreateUserInput } from '../user/dto/create-user.input';
+import { User } from '../user/entities/user.entity';
+import { Model } from 'mongoose';
+import { HandleMongoError } from 'src/utils/handle-error';
 
 @Injectable()
 export class AuthenticationService {
-  create(createAuthenticationDto: CreateAuthenticationDto) {
-    return 'This action adds a new authentication';
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<User>,
+  ) {}
+
+  async create(createAuthenticationDto: CreateUserInput) {
+    try {
+      const user = new this.userModel(createAuthenticationDto);
+      console.log('user');
+      console.log(user);
+      return;
+    } catch (error) {
+      HandleMongoError(error.code);
+    }
   }
 
   findAll() {
@@ -16,7 +30,7 @@ export class AuthenticationService {
     return `This action returns a #${id} authentication`;
   }
 
-  update(id: number, updateAuthenticationDto: UpdateAuthenticationDto) {
+  update(id: number, updateAuthenticationDto: any) {
     return `This action updates a #${id} authentication`;
   }
 
